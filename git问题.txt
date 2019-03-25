@@ -1,0 +1,5 @@
+###问题1、Push failed: Failed with error: unable to access 'https://github.com/Hyglwhsdyj/Patient.git/': The requested URL returned error: 403
+解决：控制面板->凭据管理器->github->删除
+###问题2、Can't connect to repository from configured remote. You could want to check .git config.
+       Do you want to proceed anyway?
+解决：项目->查看隐藏文件夹->.git->删除
