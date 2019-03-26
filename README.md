@@ -230,7 +230,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 		
 >代码中设计了一个UserInterface模型接口，然后实现接口的UserModelImpl类。Controller控制器Activity调用UserModelImpl类中的方法发起网络请求，然后通过注册LoginListener接口来获得网络请求的结果,通知View视图层更新UI和显示提示。至此，Activity就将View视图显示和Model模型数据处理隔离开了。Activity担当Contronller完成了Model和View之间的协调作用。
   
-实例分析：Activity中的控件tvResult必须关心业务和数据，才能知道自己该怎么展示(比如成功显示绿色，失败显示红色)。很难在不沟通的情况下一个负责获取数据，一个负责展示UI，完成这个功能！并且逻辑都在Activity里面，Model和Controller根本没有分开，并且数据和View严重耦合。
+实例分析：在Android开发中，Activity并不是一个标准的MVC模式中的Controller，它的首要职责是加载应用的布局和初始化用户 界面，并接受并处理来自用户的操作请求，进而作出响应。随着界面及其逻辑的复杂度不断提升，Activity类的职责不断增加，以致变得庞大臃肿。Activity中的控件tvResult必须关心业务和数据，才能知道自己该怎么展示(比如成功显示绿色，失败显示红色)。很难在不沟通的情况下一个负责获取数据，一个负责展示UI，完成这个功能！并且逻辑都在Activity里面，Model和Controller根本没有分开，并且数据和View严重耦合。MVC的真实存在是MC(V)!
   
 #####2.3主要缺点
 >主要缺点有两个：
