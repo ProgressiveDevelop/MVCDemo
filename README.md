@@ -6,7 +6,7 @@
 >其中M层处理数据，业务逻辑等；V层处理界面的显示结果；C层起到桥梁的作用，来控制V层和M层通信以此来达到分离视图显示和业务逻辑层。
 
 #####2.1 MVC流程
-![MVC模式图](https://raw.githubusercontent.com/ProgressiveDevelop/MVCDemo/master/img/mvc.jpg)
+![MVC模式图](https://raw.githubusercontent.com/ProgressiveDevelop/MVCDemo/master/img/mvc2.png)
 >1、View接受用户的交互请求
   
 >2、View将请求转交给Controller
@@ -20,8 +20,7 @@
 >View和Controller使用策略模式(Strategy)实现，View使用组合模式(Composite)，View和Model通过观察者模式(Observer)同步信息。Controller不知道任何View的细节，一个Controller能被多个View使用。MVC的一个缺点是很难对Controller进行单元测试，Controller操作数据，但是如何从View上断言这些数据的变化呢？例如，点击一个View的按钮，提交一个事件给Controller，Controller修改Model的值。这个值反映到View上是字体和颜色的变化。测试这个Case还是有点困难的。
 		
 #####2.2 Android中的MVC
->在Android中：
-
+  
 >视图层(View)
   
 >一般采用XML文件进行界面的描述，这些XML可以理解为App的View。使用的时候可以非常方便的引入。同时便于后期界面的修改。逻辑中与界面对应的id不变化则代码不用修改，大大增强了代码的可维护性。
@@ -35,6 +34,8 @@
 >我们针对业务模型，建立的数据结构和相关的类，就可以理解为App的Model，Model是与View无关，而与业务相关的。对数据库的操作、对网络等的操作都应该在Model里面处理，当然对业务计算等操作也是必须放在的该层的。
   
 #####2.3 实例
+![MVC模式图](https://raw.githubusercontent.com/ProgressiveDevelop/MVCDemo/master/img/mvc_demo.png)
+  
 >模拟用户登录：当手机界面上，用户点击登录按钮，获取用户输入的账号和密码后，提交数据到服务器，服务器处理完成后响应，显示用户登录的结果。
 ```
 //定义接口，监听登录响应回调

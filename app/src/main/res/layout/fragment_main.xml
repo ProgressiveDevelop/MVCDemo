@@ -21,7 +21,7 @@
         android:layout_height="48dp"
         android:layout_margin="10dp"
         android:hint="@string/tip_input_pass"
-        android:inputType="phone"
+        android:inputType="textPassword"
         app:layout_constraintTop_toBottomOf="@id/etPhone" />
 
     <Button
