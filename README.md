@@ -5,7 +5,7 @@
 		
 >其中M层处理数据，业务逻辑等；V层处理界面的显示结果；C层起到桥梁的作用，来控制V层和M层通信以此来达到分离视图显示和业务逻辑层。
 
-#####2.1 MVC流程
+##### 2.1 MVC流程
 ![MVC模式图](https://raw.githubusercontent.com/ProgressiveDevelop/MVCDemo/master/img/mvc2.png)
 >1、View接受用户的交互请求
   
@@ -243,6 +243,6 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 #### 2.4演变MVP
 >对MVC的演变模式，主要解决MVC第一个缺点：将View和Model解耦。
   
-### 2.5演变MVVP
+#### 2.5演变MVVP
 >对MVP的优化模式，采用双向绑定，View的变动，自动反映在ViewModel,反之亦然。
   
