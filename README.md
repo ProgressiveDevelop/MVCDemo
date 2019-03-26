@@ -1,6 +1,6 @@
-####MVC模式
+#### MVC模式
   
-#####1、概念
+##### 1、概念
 >MVC模式（Model–view–controller）是软件工程中的一种软件架构模式，把软件系统分为三个基本部分：模型（Model）、视图（View）和控制器（Controller）。
 		
 >其中M层处理数据，业务逻辑等；V层处理界面的显示结果；C层起到桥梁的作用，来控制V层和M层通信以此来达到分离视图显示和业务逻辑层。
@@ -19,7 +19,7 @@
 
 >View和Controller使用策略模式(Strategy)实现，View使用组合模式(Composite)，View和Model通过观察者模式(Observer)同步信息。Controller不知道任何View的细节，一个Controller能被多个View使用。MVC的一个缺点是很难对Controller进行单元测试，Controller操作数据，但是如何从View上断言这些数据的变化呢？例如，点击一个View的按钮，提交一个事件给Controller，Controller修改Model的值。这个值反映到View上是字体和颜色的变化。测试这个Case还是有点困难的。
 		
-#####2.2 Android中的MVC
+##### 2.2 Android中的MVC
   
 >视图层(View)
   
@@ -33,7 +33,7 @@
   
 >我们针对业务模型，建立的数据结构和相关的类，就可以理解为App的Model，Model是与View无关，而与业务相关的。对数据库的操作、对网络等的操作都应该在Model里面处理，当然对业务计算等操作也是必须放在的该层的。
   
-#####2.3 实例
+##### 2.3 实例
 ![MVC模式图](https://raw.githubusercontent.com/ProgressiveDevelop/MVCDemo/master/img/mvc_demo.png)
   
 >模拟用户登录：当手机界面上，用户点击登录按钮，获取用户输入的账号和密码后，提交数据到服务器，服务器处理完成后响应，显示用户登录的结果。
@@ -233,16 +233,16 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
   
 实例分析：在Android开发中，Activity并不是一个标准的MVC模式中的Controller，它的首要职责是加载应用的布局和初始化用户 界面，并接受并处理来自用户的操作请求，进而作出响应。随着界面及其逻辑的复杂度不断提升，Activity类的职责不断增加，以致变得庞大臃肿。Activity中的控件tvResult必须关心业务和数据，才能知道自己该怎么展示(比如成功显示绿色，失败显示红色)。很难在不沟通的情况下一个负责获取数据，一个负责展示UI，完成这个功能！并且逻辑都在Activity里面，Model和Controller根本没有分开，并且数据和View严重耦合。MVC的真实存在是MC(V)!
   
-#####2.3主要缺点
+##### 2.3主要缺点
 >主要缺点有两个：
   
 >1、View对Model的依赖，会导致View也包含了业务逻辑；
   
 >2、Controller会变得很复杂。
 
-####2.4演变MVP
+#### 2.4演变MVP
 >对MVC的演变模式，主要解决MVC第一个缺点：将View和Model解耦。
   
-###2.5演变MVVP
+### 2.5演变MVVP
 >对MVP的优化模式，采用双向绑定，View的变动，自动反映在ViewModel,反之亦然。
   
