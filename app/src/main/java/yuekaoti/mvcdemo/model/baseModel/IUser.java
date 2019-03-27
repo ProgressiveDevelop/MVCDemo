@@ -1,4 +1,4 @@
-package yuekaoti.mvcdemo.model.interFace;
+package yuekaoti.mvcdemo.model.baseModel;
 
 import yuekaoti.mvcdemo.custominterface.LoginListener;
 
@@ -8,6 +8,6 @@ import yuekaoti.mvcdemo.custominterface.LoginListener;
  * @date 2019/3/26
  * @summary : User Model
  */
-public interface UserInterface {
+public interface IUser {
     void login(String userPhone, String userPass, LoginListener listener);
 }

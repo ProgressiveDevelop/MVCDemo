@@ -34,7 +34,7 @@
 >我们针对业务模型，建立的数据结构和相关的类，就可以理解为App的Model，Model是与View无关，而与业务相关的。对数据库的操作、对网络等的操作都应该在Model里面处理，当然对业务计算等操作也是必须放在的该层的。
   
 ##### 2.3 实例
-![MVC模式图](https://raw.githubusercontent.com/ProgressiveDevelop/MVCDemo/master/img/mvc_demo.png)
+![MVC实例图](https://raw.githubusercontent.com/ProgressiveDevelop/MVCDemo/master/img/mvc_demo.png)
   
 >模拟用户登录：当手机界面上，用户点击登录按钮，获取用户输入的账号和密码后，提交数据到服务器，服务器处理完成后响应，显示用户登录的结果。
 ```
@@ -65,8 +65,8 @@ public interface LoginListener {
 
 ```
 ```
-//定义Model,处理用户登录请求
-package yuekaoti.mvcdemo.model.interFace;
+//定义业务接口
+package yuekaoti.mvcdemo.model.baseModel;
 
 import yuekaoti.mvcdemo.custominterface.LoginListener;
 
@@ -76,17 +76,18 @@ import yuekaoti.mvcdemo.custominterface.LoginListener;
  * @date 2019/3/26
  * @summary : User Model
  */
-public interface UserInterface {
+public interface IUser {
     void login(String userPhone, String userPass, LoginListener listener);
 }
 
+
 //定义Model实现
-package yuekaoti.mvcdemo.model.modelImpl;
+package yuekaoti.mvcdemo.model;
 
 import android.text.TextUtils;
 
 import yuekaoti.mvcdemo.custominterface.LoginListener;
-import yuekaoti.mvcdemo.model.interFace.UserInterface;
+import yuekaoti.mvcdemo.model.baseModel.IUser;
 
 /**
  * @version 1.0
@@ -94,7 +95,7 @@ import yuekaoti.mvcdemo.model.interFace.UserInterface;
  * @date 2019/3/26
  * @summary : User Model 实现类
  */
-public class UserModelImpl implements UserInterface {
+public class UserModel implements IUser {
     /**
      * 用户登录
      *
@@ -139,22 +140,20 @@ public class UserModelImpl implements UserInterface {
 package yuekaoti.mvcdemo.controller;
 
 import android.annotation.SuppressLint;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import yuekaoti.mvcdemo.R;
 import yuekaoti.mvcdemo.custominterface.LoginListener;
-import yuekaoti.mvcdemo.bean.User;
-import yuekaoti.mvcdemo.model.modelImpl.UserModelImpl;
+import yuekaoti.mvcdemo.model.UserModel;
 
 /**
  * MVC Controller
@@ -165,7 +164,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private EditText etPhone, etPass;
     private TextView tvResult;
     //Model
-    private UserModelImpl userModel;
+    private UserModel userModel;
 
     public MainActivityFragment() {
     }
@@ -181,7 +180,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //创建model User对象
-        userModel = new UserModelImpl();
+        userModel = new UserModel();
         //初始化控件
         etPhone = view.findViewById(R.id.etPhone);
         etPass = view.findViewById(R.id.etPass);
@@ -227,9 +226,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
 }
 
 ```
->从代码中可以看出,Activity持有了UserModelImpl模型的对象，当用户有点击Button交互的时候，Activity作为Controller控制层读取View视图层EditText View的数据，然后向Model模型发起数据请求，也就是调用UserModelImpl对象的方法 login()方法。当Model模型处理数据结束后，通过接口LoginListener通知View视图层数据处理完毕，然后View视图层调用updateResult方法更新UI。至此，整个MVC框架流程就在Activity中完成。
+>从代码中可以看出,Activity持有了UserModel模型的对象，当用户有点击Button交互的时候，Activity作为Controller控制层读取View视图层EditText View的数据，然后向Model模型发起数据请求，也就是调用UserModel对象的方法 login()方法。当Model模型处理数据结束后，通过接口LoginListener通知View视图层数据处理完毕，然后View视图层调用updateResult方法更新UI。至此，整个MVC框架流程就在Activity中完成。
 		
->代码中设计了一个UserInterface模型接口，然后实现接口的UserModelImpl类。Controller控制器Activity调用UserModelImpl类中的方法发起网络请求，然后通过注册LoginListener接口来获得网络请求的结果,通知View视图层更新UI和显示提示。至此，Activity就将View视图显示和Model模型数据处理隔离开了。Activity担当Contronller完成了Model和View之间的协调作用。
+>代码中设计了一个IUser业务接口，然后实现接口的UserModel类。Controller控制器Activity调用UserModel类中的方法发起网络请求，然后通过注册LoginListener接口来获得网络请求的结果,通知View视图层更新UI和显示提示。至此，Activity就将View视图显示和Model模型数据处理隔离开了。Activity担当Contronller完成了Model和View之间的协调作用。
   
 实例分析：在Android开发中，Activity并不是一个标准的MVC模式中的Controller，它的首要职责是加载应用的布局和初始化用户 界面，并接受并处理来自用户的操作请求，进而作出响应。随着界面及其逻辑的复杂度不断提升，Activity类的职责不断增加，以致变得庞大臃肿。Activity中的View关心业务和数据，才能知道自己该怎么展示(比如成功显示绿色，失败显示红色)。很难在不沟通的情况下一个负责获取数据，一个负责展示UI，完成这个功能！并且逻辑都在Activity里面，View和Controller根本没有分开，并且数据和View严重耦合。MVC的真实存在是MC(V)!
   
@@ -245,4 +244,9 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
   
 #### 2.5演变MVVP
 >对MVP的优化模式，采用双向绑定，View的变动，自动反映在ViewModel,反之亦然。
+
+#### 2.6参考资料
+[Android App的设计架构：MVC,MVP,MVVM与架构经验谈](https://www.tianmaying.com/tutorial/AndroidMVC)
+
+[mvc mvp mvvp区别](https://wenzongliang.iteye.com/blog/2240284)
   

@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import yuekaoti.mvcdemo.R;
 import yuekaoti.mvcdemo.custominterface.LoginListener;
-import yuekaoti.mvcdemo.model.modelImpl.UserModelImpl;
+import yuekaoti.mvcdemo.model.UserModel;
 
 /**
  * MVC Controller
@@ -25,7 +25,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     private EditText etPhone, etPass;
     private TextView tvResult;
     //Model
-    private UserModelImpl userModel;
+    private UserModel userModel;
 
     public MainActivityFragment() {
     }
@@ -41,7 +41,7 @@ public class MainActivityFragment extends Fragment implements View.OnClickListen
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         //创建model User对象
-        userModel = new UserModelImpl();
+        userModel = new UserModel();
         //初始化控件
         etPhone = view.findViewById(R.id.etPhone);
         etPass = view.findViewById(R.id.etPass);

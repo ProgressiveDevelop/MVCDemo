@@ -1,9 +1,9 @@
-package yuekaoti.mvcdemo.model.modelImpl;
+package yuekaoti.mvcdemo.model;
 
 import android.text.TextUtils;
 
 import yuekaoti.mvcdemo.custominterface.LoginListener;
-import yuekaoti.mvcdemo.model.interFace.UserInterface;
+import yuekaoti.mvcdemo.model.baseModel.IUser;
 
 /**
  * @version 1.0
@@ -11,7 +11,7 @@ import yuekaoti.mvcdemo.model.interFace.UserInterface;
  * @date 2019/3/26
  * @summary : User Model 实现类
  */
-public class UserModelImpl implements UserInterface {
+public class UserModel implements IUser {
     /**
      * 用户登录
      *
